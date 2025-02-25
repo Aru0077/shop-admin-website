@@ -2,8 +2,8 @@
 <template>
       <el-card shadow="never">
             <el-table v-loading="loading" :data="products" border>
-                  <el-table-column prop="productCode" label="商品编码" width="100" />
-                  <el-table-column prop="name" label="商品名称" width="180" />
+                  <el-table-column prop="productCode" label="商品编码" width="90" />
+                  <el-table-column prop="name" label="商品名称" width="150" />
                   <el-table-column label="商品主图" width="100">
                         <template #default="{ row }">
                               <el-image v-if="row.mainImage" :src="row.mainImage" :preview-src-list="[row.mainImage]"
@@ -14,7 +14,7 @@
 
                   <el-table-column label="状态" width="260">
                         <template #default="{ row }">
-                              <div class="flex">
+                              <div class="flex gap-0">
                                     <el-button v-for="status in Object.values(ProductStatus)" :key="status"
                                           :type="row.status === status ? 'primary' : 'default'" size="small"
                                           @click="handleStatusChange(row, status)" :disabled="row.status === status">
@@ -24,7 +24,9 @@
                         </template>
                   </el-table-column>
 
-                  <el-table-column label="促销" width="80">
+                  <el-table-column prop="salesCount" label="销量" width="70" />
+
+                  <el-table-column label="促销" width="70">
                         <template #default="{ row }">
                               <el-tag :type="row.is_promotion ? 'danger' : 'info'">
                                     {{ row.is_promotion ? '是' : '否' }}
@@ -32,7 +34,7 @@
                         </template>
                   </el-table-column>
 
-                  <el-table-column label="创建时间" width="160">
+                  <el-table-column label="创建时间" width="120">
                         <template #default="{ row }">
                               {{ formatDateTime(row.createdAt) }}
                         </template>
