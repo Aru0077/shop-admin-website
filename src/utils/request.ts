@@ -79,7 +79,7 @@ class HttpRequest {
                   (error) => {
                         this.hideLoading()
                         const message = error.response?.data?.message || 'Network error'
-                        console.log(error.response?.data);
+                        console.log(error);
 
                         if (error.response?.status === 401) {
                               localStorage.removeItem('token')
