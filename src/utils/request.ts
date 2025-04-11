@@ -1,6 +1,6 @@
 // src/utils/http.request.ts
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { ElLoading } from 'element-plus'
+import { ElLoading, ElMessage } from 'element-plus'
 import type { LoadingInstance } from 'element-plus/es/components/loading/src/loading'
 
 
@@ -83,7 +83,10 @@ class HttpRequest {
 
                         if (error.response?.status === 401) {
                               localStorage.removeItem('token')
-                              // window.location.href = '/login'
+                              ElMessage.error('登录已过期，请重新登录')
+                              setTimeout(() => {
+                                    window.location.href = '/login'
+                              }, 1500) // 延迟1.5秒，让用户看到提示消息
                         }
 
                         return Promise.reject(new Error(message))

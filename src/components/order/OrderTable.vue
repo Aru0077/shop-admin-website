@@ -10,12 +10,12 @@
                   </el-table-column>
                   <el-table-column label="订单金额" min-width="120">
                         <template #default="{ row }">
-                              <span class="font-medium text-red-500">¥ {{ (row.totalAmount / 100).toFixed(2) }}</span>
+                              <span class="font-medium text-red-500">{{ formatPrice(row.totalAmount) }}</span>
                         </template>
                   </el-table-column>
                   <el-table-column label="实付金额" min-width="120">
                         <template #default="{ row }">
-                              <span class="font-medium">¥ {{ (row.paymentAmount / 100).toFixed(2) }}</span>
+                              <span class="font-medium">{{ formatPrice(row.paymentAmount) }}</span>
                         </template>
                   </el-table-column>
                   <el-table-column label="商品数量" width="100">
@@ -73,6 +73,17 @@ import OrderStatusTags from '@/components/order/OrderStatusTags.vue';
 const orderStore = useOrderStore();
 
 const emit = defineEmits(['viewDetail', 'ship', 'sizeChange', 'pageChange']);
+
+// 格式化价格为蒙古图格里克格式
+const formatPrice = (price: number): string => {
+    // 添加千分位分隔符
+    const formattedPrice = price.toLocaleString('mn-MN', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+    // 添加蒙古图格里克符号
+    return `${formattedPrice} ₮`;
+};
 
 // 分页处理
 const handleSizeChange = (val: number) => {
